@@ -68,7 +68,6 @@ function postData( persona ) {
 
 fetch( 'https://swapi.co/api/people/1/' )
     .then( resp => resp.json() )
-    // El paremetre que envia el primer fetch s'envia a la funció postData
     .then( postData )
     .then( resp => resp.json() )
     .then( console.log );

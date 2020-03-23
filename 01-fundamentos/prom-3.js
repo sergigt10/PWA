@@ -33,7 +33,6 @@ let sumarRapido = (numero) => {
 let cosas = [ sumarLento(5), sumarRapido(10), true, 'hola mundo', retornaTrue() ];
 
 
-// Espera a que les dues promeses s'executin a la vegada
 Promise.all( cosas )
         .then( respuestas => {
             console.log( respuestas );

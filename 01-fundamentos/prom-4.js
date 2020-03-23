@@ -29,7 +29,7 @@ let sumarRapido = (numero) => {
 
 }
 
-// Si una de les dues promeses s'executa abans i no dona error i l'altre si. La primera s'executarà correctament, obviant l'altre que té un error.
+
 Promise.race( [ sumarLento(5), sumarRapido(10) ] )
         .then( respuesta => {
             console.log(respuesta);

@@ -1,7 +1,7 @@
  
 
 
-// Event - fetch per recuperar dades
+
 self.addEventListener('fetch', event => {
 
 
