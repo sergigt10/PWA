@@ -1,0 +1,79 @@
+** SW **
+# Ejecutar dos promesas o mas a la vez -> Promise.all([])
+# Igual que Promise.all([]) pero las pone a compatir -> Promise.race()
+# .JSON() -> transforma a objeto JSON.
+# .parse() -> convierte a JSON.
+# .stringify() -> JSON a String.
+# catch -> manejar errores fetch.
+# event.respondWith(respuesta) -> Responde al navegador web lo que se encuentre en la respuesta cuándo se solicite algún recurso web.
+# responWith() -> intercepta las peticiones.
+# fetch(e.request) -> el recurso que nos solicitant
+# addEventListener -> escuchar evento.
+# self.addEventListener('install') -> install se dispara cada vez que haya un cambio en el SW.
+# self.addEventListener('activate') -> cuando el SW toma el control de la app. Borrar cache viejo.
+# event.waitUntil() -> esperar hasta...
+# Fetch -> manejo de peticiones HTTP. Un fetch siempre es una acción mas lenta que las otras acciones que realizes. Por esto usamos waitUntil para prevenir esto si es necesario.
+# self.addEventListener('fetch') -> aplicar las estrategias del cache.
+# Sync -> cuándo recuperamos la conexión a Internet. self.addEventListener('sync') 
+# window.SyncManager -> para detectar si el navegador soporta Sync.
+# event.tag -> nombre del sync registrado por SW.
+# self.addEventListener('push') ->  manejar push notification.
+# Notification.requestPermission() -> Pide permiso al usuario para recibir notificaciones.
+# ¿Cuales son los pasos que suceden cuando NO existe un Service Worker previo? -> Se registra, descarga, instala y activa.
+# fetch(event.request) -> regresa lo que se esta pidiendo. Esto lo hace el SW.
+# Sin conexión a Internet no podemos hacer un fetch.
+# window.caches -> mira si hay cache storage.
+# caches.open('dsdadad') -> busca en el navegador web un espacio llamado dsdadad.
+# caches.has('') -> mira si existe un cache.
+# caches.delete('') -> elimina un cache.
+# caches.keys() -> devuelve todas las caches disponibles.
+# cache.keys() -> recorrer elementos de un cache.
+# cache.add('') -> añadir elementos al cache.
+# cache.addAll('') -> añadir array al cache.
+# cache.delete('') -> eliminar elemento del cache.
+# cache.match('') -> para comprovar si un archivo existe.
+# cache.put('') -> modificar un elemento guardado en el cache.
+# cache.put(  Argumento 1 , Argumento 2 ) -> request y la respuesta a ese request.
+# APP Shell -> elementos necesarios para que funcione nuestra página.
+# Importar un archivo dentro del SW: importScripts('')
+# req.clone() -> porque solo lo podemos usar una vez.
+
+** Estrategia **
+# 1 # Cache only -> Todo sale del cache. Pero esta estrategia tiene algunos problemas como por ejemplo actualizar archivos. Si queremos actualizar un archivo tenemos que actualizar el SW.
+# 2 # Cache with network fallback -> Intenta primero el cache sino pues a Internet a buscar el recurso. El problema es que mezcla recursos dinámicos y información esencial para la app. 
+# Cache dinámico optimización (utilizando Cache with network fallback) -> crear tres caches: un cache para elementos estáticos, un cache para elementos dinámicos y un cache para elementos inmutables. Importante limitar el cache dinámico.
+# 3 # Network with cache fallback -> Intenta primero Internet sino pues al cache a buscar el recurso. El problema es que siempre intentara hacer un fetch HTTP y la respuesta es más lenta que la estrategia anterior.
+# 4# Cache with network update -> útil cuándo el rendimiento es crítico (importante devolver la información). Siempre estará un paso atrás.
+# 5 # Cache y Network Race -> una competéncia para ver quién primero devuelve la informació (si es la cache o Internet "busca el más rápido").
+# Se trata de combinar estas estrategias para conseguir la mejor PWA para cada app.
+
+** manifest.json **
+# Nos permite indicar como queremos que la app se vea en móvil. Iconos, elementos css, ...
+
+** indexedDB y pouchDB **
+# Correr en HTTPS.
+# window.indexedDB.open('nombreBD', versionBD) -> crea la bd
+# request.onupgradeneeded -> se actualiza cuando se crea o se sube de versión de la BD.
+# let db = event.target.result -> acceder a la bd (referencia a la bd)
+# Necesitamos una llave para hacer cualquier acción a la bd.
+# db.createObjectStore('') -> crea una tabla
+# request.onsuccess -> función para insertar datos.
+# let heroesTransaction = db.transaction('nombreTable','readwrite') -> leer y insertar.
+# heroesTransaction.oncomplete -> informa sobre el éxito de la transacción.
+# Es mejor usar una librería para trabajar con indexedDB
+# pouchdb -> es una bd de javascript que permite almacenar información incluso en offline.
+# var db = new PouchDB('nombreBD') -> creamos una BD.
+# db.put() -> añadir a la BD o actualizar.
+# db.allDocs() -> mostrar todos los registros BD.
+# db.changes() -> actua como un ajax, escucha un evento si refrescar la página.
+# db.remove() -> eliminar registro.
+
+** Tareas asíncronas **
+# self.registration.sync
+# self.registration.sync.register('') -> indicamos que hay un nuevo registro. A penas haya conexión a Internet haz algo.
+
+** Online **
+# navigator.onLine -> si tenemos conexión.
+# window.addEventListener('online','') -> evento para detectar online
+
+
