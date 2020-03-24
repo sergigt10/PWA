@@ -1,3 +1,11 @@
+** PWA **
+# Funciona sin conexión a Internet, se actualiza constantemente, fiable, pesa poco y rápida de cargar.
+# La página web tiene que tener HTTPS.
+# Service worker intercepta todas las peticiones de la web (proxy). Mira si puede devolver las peticiones sin conectarse a Internet (cache) o tiene que pedirlo a Internet. Corre en el background en un hilo independiente.
+# Iniciar SW: navigator.serviceWorker.register("/sw.js")
+# Ciclo de vida: instalando(Se descarga el archivo de javascript, el archivo es parseado o revisado, entra a la fase de instalación, si falla el se pierden en una abismo infinito, si todo lo hace correctamente entramos al siguiente paso), instalado (el SW ha sido acceptado y esta esperando su activación. Se moverá al siguiente estado si no existe otro SW en ejecución. Si existe otro SW, se esperará a qie todos los tabs sean cerrados, para poder ejtrar al siguiente paso), activación (justo antes de que el nuevo SW tome el control de la app), activado (el SW tiene control de toda la app o el alcance que nosotros le digamos) y ocioso (cuando falla el SW en la instalación o es reemplazado por versiones nuevas, ya no tiene control de la app).
+# Si ya existe un SW y es igual que antes este queda como activado y no se vuelve a instalar.
+
 ** SW **
 # Ejecutar dos promesas o mas a la vez -> Promise.all([])
 # Igual que Promise.all([]) pero las pone a compatir -> Promise.race()
